@@ -58,11 +58,11 @@ mod fonts;
 mod images;
 mod samples;
 
-pub use samples::{by_name, gen, CaptchaName, Difficulty};
-
 use filters::Filter;
 use fonts::{Default, Font};
+use image::error::ImageResult;
 use images::{Image, Pixl};
+pub use samples::{by_name, gen, CaptchaName, Difficulty};
 
 use rand::seq::SliceRandom;
 use rand::thread_rng;
@@ -145,7 +145,7 @@ impl Captcha {
     ///
     /// The format that is written is determined from the filename's extension. On error `Err` is
     /// returned.
-    pub fn save(&self, p: &Path) -> Result<()> {
+    pub fn save(&self, p: &Path) -> ImageResult<()> {
         self.img.save(p)
     }
 

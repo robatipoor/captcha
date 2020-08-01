@@ -1,8 +1,7 @@
 use std::cmp::{max, min};
-use std::io::Result;
-use std::iter::FromIterator;
 use std::path::Path;
 
+use image::error::ImageResult;
 use image::{load_from_memory, ImageBuffer, Rgb, RgbImage};
 use lodepng;
 
@@ -63,7 +62,7 @@ impl Image {
     pub fn get_pixel(&self, x: u32, y: u32) -> Pixl {
         let p = *self.img.get_pixel(x, y);
         Pixl {
-            rgb: [p.data[0], p.data[1], p.data[2]],
+            rgb: [p.0[0], p.0[1], p.0[2]],
         }
     }
 
@@ -75,7 +74,7 @@ impl Image {
         self.img.height()
     }
 
-    pub fn save(&self, p: &Path) -> Result<()> {
+    pub fn save(&self, p: &Path) -> ImageResult<()> {
         self.img.save(p)
     }
 
