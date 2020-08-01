@@ -1,3 +1,4 @@
+use rand::seq::SliceRandom;
 use rand::{thread_rng, Rng};
 use std::cmp::{max, min};
 use std::collections::BTreeSet;
@@ -76,7 +77,6 @@ impl Cow {
 impl Filter for Cow {
     fn apply(&self, i: &mut Image) {
         let mut rng = thread_rng();
-
         let g = match self.geometry {
             Some(ref x) => x.clone(),
             None => Geometry::new(0, i.width() - 1, 0, i.height() - 1),
@@ -89,8 +89,8 @@ impl Filter for Cow {
         let mut set = BTreeSet::new();
 
         for _ in 0..self.n {
-            let p = thread_rng().choose_mut(&mut pixels).expect("failed");
-
+            let mut rng = thread_rng();
+            let p = pixels.choose_mut(&mut rng).expect("failed");
             let r = rng.gen_range(self.min_radius, self.max_radius + 1) as i32;
             let v = Self::get_pixels(p.0 as i32, p.1 as i32, r, i);
             if self.allow_duplicates {

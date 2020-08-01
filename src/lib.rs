@@ -64,7 +64,8 @@ use filters::Filter;
 use fonts::{Default, Font};
 use images::{Image, Pixl};
 
-use rand::{thread_rng, Rng};
+use rand::seq::SliceRandom;
+use rand::thread_rng;
 use std::cmp::{max, min};
 use std::io::Result;
 use std::path::Path;
@@ -150,7 +151,7 @@ impl Captcha {
 
     fn random_char_as_image(&self) -> Option<(char, Image)> {
         let mut rng = thread_rng();
-        match rng.choose(&self.font.chars()) {
+        match self.font.chars().choose(&mut rng) {
             None => None,
             Some(c) => match self.font.png(*c) {
                 None => None,
