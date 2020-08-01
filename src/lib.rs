@@ -85,10 +85,10 @@ pub struct Geometry {
 impl Geometry {
     pub fn new(left: u32, right: u32, top: u32, bottom: u32) -> Geometry {
         Geometry {
-            left: left,
-            right: right,
-            top: top,
-            bottom: bottom,
+            left,
+            right,
+            top,
+            bottom,
         }
     }
 }
@@ -152,11 +152,11 @@ impl Captcha {
         let mut rng = thread_rng();
         match rng.choose(&self.font.chars()) {
             None => None,
-            Some(c) => match self.font.png(c.clone()) {
+            Some(c) => match self.font.png(*c) {
                 None => None,
                 Some(p) => match Image::from_png(p) {
                     None => None,
-                    Some(i) => Some((c.clone(), i)),
+                    Some(i) => Some((*c, i)),
                 },
             },
         }
@@ -164,18 +164,15 @@ impl Captcha {
 
     /// Adds a random character using the current font.
     pub fn add_char(&mut self) -> &mut Self {
-        match self.random_char_as_image() {
-            Some((c, i)) => {
-                let x = self.text_area.right;
-                let y = (self.text_area.bottom + self.text_area.top) / 2 - i.height() / 2;
-                self.img.add_image(x, y, &i);
+        if let Some((c, i)) = self.random_char_as_image() {
+            let x = self.text_area.right;
+            let y = (self.text_area.bottom + self.text_area.top) / 2 - i.height() / 2;
+            self.img.add_image(x, y, &i);
 
-                self.text_area.top = min(self.text_area.top, y);
-                self.text_area.right = x + i.width() - 1;
-                self.text_area.bottom = max(self.text_area.bottom, y + i.height() - 1);
-                self.chars.push(c);
-            }
-            _ => {}
+            self.text_area.top = min(self.text_area.top, y);
+            self.text_area.right = x + i.width() - 1;
+            self.text_area.bottom = max(self.text_area.bottom, y + i.height() - 1);
+            self.chars.push(c);
         }
 
         self

@@ -61,7 +61,7 @@ impl Image {
     }
 
     pub fn get_pixel(&self, x: u32, y: u32) -> Pixl {
-        let p = self.img.get_pixel(x, y).clone();
+        let p = *self.img.get_pixel(x, y);
         Pixl {
             rgb: [p.data[0], p.data[1], p.data[2]],
         }

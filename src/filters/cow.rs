@@ -26,21 +26,15 @@ impl Cow {
     }
 
     pub fn circles(self, n: u32) -> Self {
-        Cow { n: n, ..self }
+        Cow { n, ..self }
     }
 
     pub fn min_radius(self, min_radius: u32) -> Self {
-        Cow {
-            min_radius: min_radius,
-            ..self
-        }
+        Cow { min_radius, ..self }
     }
 
     pub fn max_radius(self, max_radius: u32) -> Self {
-        Cow {
-            max_radius: max_radius,
-            ..self
-        }
+        Cow { max_radius, ..self }
     }
 
     // right + bottom = inclusive
@@ -95,10 +89,7 @@ impl Filter for Cow {
         let mut set = BTreeSet::new();
 
         for _ in 0..self.n {
-            let p = thread_rng()
-                .choose_mut(&mut pixels)
-                .expect("failed")
-                .clone();
+            let p = thread_rng().choose_mut(&mut pixels).expect("failed");
 
             let r = rng.gen_range(self.min_radius, self.max_radius + 1) as i32;
             let v = Self::get_pixels(p.0 as i32, p.1 as i32, r, i);

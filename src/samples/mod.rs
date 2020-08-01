@@ -34,7 +34,7 @@ pub enum CaptchaName {
     Mila,
 }
 
-static CAPTCHA_FUNCTIONS: &'static [fn(Difficulty) -> Captcha] =
+static CAPTCHA_FUNCTIONS: &[fn(Difficulty) -> Captcha] =
     &[captcha_amelia, captcha_lucy, captcha_mila];
 
 /// Creates a random CAPTCHA with the given difficulty.

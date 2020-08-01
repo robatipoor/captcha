@@ -12,7 +12,7 @@ pub struct Dots {
 impl Dots {
     pub fn new(n: u32) -> Dots {
         Dots {
-            n: n,
+            n,
             min_radius: 5,
             max_radius: 10,
         }
