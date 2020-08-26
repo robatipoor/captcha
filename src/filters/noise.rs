@@ -1,5 +1,5 @@
-use filters::Filter;
-use images::{Image, Pixl};
+use crate::filters::Filter;
+use crate::images::{Image, Pixl};
 use rand::{thread_rng, Rng};
 
 pub struct Noise {

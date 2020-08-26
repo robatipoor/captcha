@@ -3,9 +3,9 @@ use rand::{thread_rng, Rng};
 use std::cmp::{max, min};
 use std::collections::BTreeSet;
 
-use filters::Filter;
-use images::Image;
-use Geometry;
+use crate::filters::Filter;
+use crate::images::Image;
+use crate::Geometry;
 
 pub struct Cow {
     min_radius: u32,

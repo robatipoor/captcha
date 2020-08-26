@@ -1,7 +1,7 @@
 use std::f64::consts;
 
-use filters::Filter;
-use images::Image;
+use crate::filters::Filter;
+use crate::images::Image;
 
 pub enum Direction {
     HORIZONTAL,

@@ -267,9 +267,9 @@ impl Captcha {
 
 #[cfg(test)]
 mod tests {
-    use filters::{Grid, Noise};
-    use fonts::Default;
-    use Captcha;
+    use crate::filters::{Grid, Noise};
+    use crate::fonts::Default;
+    use crate::Captcha;
 
     use std::path::Path;
 

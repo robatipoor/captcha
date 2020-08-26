@@ -45,8 +45,8 @@ impl Font for Default {
 
 #[cfg(test)]
 mod tests {
-    use fonts::{Default, Font};
-    use images::Image;
+    use crate::fonts::{Default, Font};
+    use crate::images::Image;
 
     #[test]
     fn fonts_default() {
