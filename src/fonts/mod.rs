@@ -1,5 +1,4 @@
 use base64::decode;
-use serde_json;
 use std::collections::HashMap;
 
 pub trait Font {

@@ -3,7 +3,6 @@ use std::path::Path;
 
 use image::error::ImageResult;
 use image::{load_from_memory, ImageBuffer, Rgb, RgbImage};
-use lodepng;
 
 #[derive(Clone, Copy)]
 pub struct Pixl {

@@ -67,7 +67,7 @@ pub use samples::{by_name, gen, CaptchaName, Difficulty};
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use std::cmp::{max, min};
-use std::io::Result;
+
 use std::path::Path;
 
 /// Represents the area which contains text in a CAPTCHA.
