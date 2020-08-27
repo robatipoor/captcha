@@ -1,5 +1,4 @@
 extern crate captcha;
-extern crate time;
 
 use std::time::Instant;
 use captcha::{gen, Difficulty};

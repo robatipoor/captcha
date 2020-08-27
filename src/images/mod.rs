@@ -2,7 +2,10 @@ use std::cmp::{max, min};
 use std::path::Path;
 
 use image::error::ImageResult;
+use image::ImageFormat;
 use image::{load_from_memory, ImageBuffer, Rgb, RgbImage};
+use png::Encoder;
+use std::io::BufWriter;
 
 #[derive(Clone, Copy)]
 pub struct Pixl {
@@ -77,6 +80,10 @@ impl Image {
         self.img.save(p)
     }
 
+    pub fn save_(&self, path: &Path, format: ImageFormat) -> ImageResult<()> {
+        self.img.save_with_format(path, format)
+    }
+
     pub fn fill_circle(&mut self, x: u32, y: u32, r: u32, p: Pixl) {
         let h = self.height();
         let w = self.width();
@@ -106,12 +113,16 @@ impl Image {
     }
 
     pub fn as_png(&self) -> Option<Vec<u8>> {
-        let w = self.img.width() as usize;
-        let h = self.img.height() as usize;
-        let i = self.img.clone().into_raw();
-        match lodepng::encode_memory(&i, w, h, lodepng::ColorType::RGB, 8) {
-            Err(_) => None,
-            Ok(v) => Some(v),
-        }
+        let img_data = self.img.clone().to_vec();
+        let w = self.img.width();
+        let h = self.img.height();
+        let png_image = vec![0; img_data.len()];
+        let ref mut buff_writer = BufWriter::new(img_data);
+        let mut encoder = Encoder::new(buff_writer, w, h);
+        encoder.set_color(png::ColorType::RGB);
+        encoder.set_depth(png::BitDepth::Eight);
+        let mut header = encoder.write_header().unwrap();
+        header.write_image_data(&png_image).unwrap();
+        Some(png_image)
     }
 }
