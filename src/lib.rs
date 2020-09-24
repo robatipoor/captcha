@@ -49,7 +49,7 @@
 
 extern crate base64;
 extern crate image;
-extern crate lodepng;
+extern crate png;
 extern crate rand;
 extern crate serde_json;
 
@@ -168,6 +168,7 @@ impl Captcha {
         if let Some((c, i)) = self.random_char_as_image() {
             let x = self.text_area.right;
             let y = (self.text_area.bottom + self.text_area.top) / 2 - i.height() / 2;
+            
             self.img.add_image(x, y, &i);
 
             self.text_area.top = min(self.text_area.top, y);

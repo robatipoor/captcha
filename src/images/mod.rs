@@ -80,7 +80,7 @@ impl Image {
         self.img.save(p)
     }
 
-    pub fn save_(&self, path: &Path, format: ImageFormat) -> ImageResult<()> {
+    pub fn save_with_format(&self, path: &Path, format: ImageFormat) -> ImageResult<()> {
         self.img.save_with_format(path, format)
     }
 
